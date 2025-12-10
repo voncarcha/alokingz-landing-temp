@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 interface AnimatedBackgroundProps {
   variant?: "default" | "blur" | "dark";
@@ -14,6 +15,22 @@ export default function AnimatedBackground({
   showOverlay = true,
   overlayOpacity = 0.7,
 }: AnimatedBackgroundProps) {
+  const [mounted, setMounted] = useState(false);
+  const [particles, setParticles] = useState<Array<{ left: number; top: number; duration: number; delay: number }>>([]);
+
+  useEffect(() => {
+    setMounted(true);
+    // Generate particles only on client
+    setParticles(
+      Array.from({ length: 20 }).map(() => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 3 + Math.random() * 4,
+        delay: Math.random() * 5,
+      }))
+    );
+  }, []);
+
   const overlayClasses = {
     default: "bg-gradient-to-b from-dark-900/80 via-dark-900/60 to-dark-900/90",
     blur: "bg-dark-900/70 backdrop-blur-sm",
@@ -23,12 +40,12 @@ export default function AnimatedBackground({
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       {/* Background image */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-dark-900">
         <Image
-          src="/bg-casino.jpg"
-          alt="Casino background"
+          src="/images/bg-alokingz.png"
+          alt="Background"
           fill
-          className="object-cover object-center"
+          className="object-cover object-center opacity-30"
           priority
           quality={85}
         />
@@ -75,28 +92,30 @@ export default function AnimatedBackground({
       <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-dark-900/80" />
 
       {/* Floating particles effect (CSS only) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-crimson-400/20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [-20, -100],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 4,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeOut",
-            }}
-          />
-        ))}
-      </div>
+      {mounted && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {particles.map((particle, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 rounded-full bg-crimson-400/20"
+              style={{
+                left: `${particle.left}%`,
+                top: `${particle.top}%`,
+              }}
+              animate={{
+                y: [-20, -100],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: particle.duration,
+                repeat: Infinity,
+                delay: particle.delay,
+                ease: "easeOut",
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

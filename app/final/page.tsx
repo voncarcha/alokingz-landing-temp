@@ -1,14 +1,22 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import {
   Navigation,
   Footer,
   StatsStrip,
   AnimatedBackground,
-  ParticlesBackground,
 } from "@/app/components";
+
+const GridScan = dynamic(() => import("@/app/components/GridScan"), {
+  ssr: false,
+});
+
+const TargetCursor = dynamic(() => import("@/components/TargetCursor"), {
+  ssr: false,
+});
 
 // Leaderboard component
 function Leaderboard({ accentColor = "gold" }: { accentColor?: "gold" | "crimson" | "royal" }) {
@@ -100,7 +108,7 @@ function TournamentCard({
         href="https://game.alokingz.club/" 
         target="_blank"
         rel="noopener noreferrer"
-        className="w-full mt-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white/70 font-semibold uppercase text-sm hover:bg-white/10 hover:text-white transition-all inline-block text-center"
+        className="cursor-target w-full mt-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white/70 font-semibold uppercase text-sm hover:bg-white/10 hover:text-white transition-all inline-block text-center"
       >
         Join Now
       </a>
@@ -120,16 +128,36 @@ export default function FinalPage() {
 
   return (
     <>
-      <ParticlesBackground preset="casino" density={40} />
+      <TargetCursor 
+        spinDuration={2}
+        hideDefaultCursor={true}
+        parallaxOn={true}
+      />
+      <div style={{ width: '100%', height: '100vh', position: 'fixed', top: 0, left: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.6 }}>
+        <GridScan
+          sensitivity={0.55}
+          lineThickness={1}
+          linesColor="#0140cb"
+          gridScale={0.1}
+          scanColor="#b51018"
+          scanOpacity={0.4}
+          enablePost
+          bloomIntensity={0.6}
+          chromaticAberration={0.002}
+          noiseIntensity={0.01}
+        />
+      </div>
       <AnimatedBackground variant="blur" overlayOpacity={0.85} />
-      <Navigation />
+      <div style={{ position: 'relative', zIndex: 10 }}>
+        <Navigation />
+      </div>
 
-      <main className="pt-24">
+      <main className="pt-24" style={{ position: 'relative', zIndex: 10 }}>
         {/* Compact hero */}
         <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 text-center">
             <motion.div
-              className="relative w-32 h-32 mx-auto mb-6"
+              className="relative w-64 h-64 mx-auto mb-6"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
             >
@@ -146,17 +174,60 @@ export default function FinalPage() {
             <p className="text-white/60 text-lg mb-8 max-w-2xl mx-auto">
               Packed with features to enhance your gaming experience
             </p>
-            <a 
-              href="https://game.alokingz.club/" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-              Play to Web Browser
-            </a>
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <a 
+                href="https://game.alokingz.club/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-target btn-primary"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Play to Web Browser
+              </a>
+            </div>
+            {/* App download buttons */}
+            <div className="flex flex-wrap justify-center gap-4">
+              <a
+                href="#"
+                className="cursor-target flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-all"
+              >
+                <svg
+                  className="w-6 h-6 text-white"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
+                </svg>
+                <div className="text-left">
+                  <div className="text-[10px] text-white/50 uppercase">
+                    Download on the
+                  </div>
+                  <div className="text-sm font-semibold text-white">App Store</div>
+                </div>
+              </a>
+              <a
+                href="#"
+                className="cursor-target flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10 hover:border-white/20 transition-all"
+              >
+                <svg
+                  className="w-6 h-6 text-white"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
+                </svg>
+                <div className="text-left">
+                  <div className="text-[10px] text-white/50 uppercase">
+                    Get it on
+                  </div>
+                  <div className="text-sm font-semibold text-white">
+                    Google Play
+                  </div>
+                </div>
+              </a>
+            </div>
           </div>
         </section>
 
@@ -257,7 +328,9 @@ export default function FinalPage() {
         </section>
       </main>
 
-      <Footer />
+      <div style={{ position: 'relative', zIndex: 10 }}>
+        <Footer />
+      </div>
     </>
   );
 }

@@ -63,7 +63,7 @@ export default function Navigation() {
             href="https://game.alokingz.club/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex btn-primary !px-6 !py-3 !text-sm"
+            className="cursor-target hidden md:flex btn-primary !px-6 !py-3 !text-sm"
           >
             <svg
               className="w-5 h-5"
