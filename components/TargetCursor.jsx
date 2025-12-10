@@ -28,10 +28,6 @@ const TargetCursor = ({
     return (hasTouchScreen && isSmallScreen) || isMobileUserAgent;
   }, []);
 
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
   const constants = useMemo(
     () => ({
       borderWidth: 3,
@@ -51,6 +47,7 @@ const TargetCursor = ({
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (isMobile || !cursorRef.current) return;
 
     const originalCursor = document.body.style.cursor;
@@ -285,7 +282,7 @@ const TargetCursor = ({
     }
   }, [spinDuration, isMobile]);
 
-  if (isMobile) {
+  if (typeof window === 'undefined' || isMobile) {
     return null;
   }
 
