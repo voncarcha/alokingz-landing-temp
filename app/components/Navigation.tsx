@@ -11,6 +11,7 @@ export default function Navigation() {
     { href: "/landing-1", label: "Landing 1" },
     { href: "/landing-2", label: "Landing 2" },
     { href: "/landing-3", label: "Landing 3" },
+    { href: "/final", label: "Final" },
   ];
 
   return (
@@ -58,8 +59,10 @@ export default function Navigation() {
           </div>
 
           {/* CTA Button */}
-          <Link
-            href="#play"
+          <a
+            href="https://game.alokingz.club/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:flex btn-primary !px-6 !py-3 !text-sm"
           >
             <svg
@@ -70,7 +73,7 @@ export default function Navigation() {
               <path d="M8 5v14l11-7z" />
             </svg>
             Play Now
-          </Link>
+          </a>
         </div>
       </div>
     </nav>

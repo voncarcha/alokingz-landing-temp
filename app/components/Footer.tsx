@@ -91,6 +91,14 @@ export default function Footer() {
                   Landing 3
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/final"
+                  className="text-white/50 hover:text-crimson-400 transition-colors text-sm"
+                >
+                  Final
+                </Link>
+              </li>
             </ul>
           </div>
 
