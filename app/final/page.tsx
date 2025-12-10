@@ -3,17 +3,20 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { Suspense } from "react";
 import {
   Navigation,
   Footer,
   StatsStrip,
-  AnimatedBackground,
 } from "@/app/components";
-import LightRays from "@/components/LightRays";
+import GameRules from "@/app/components/GameRules";
 
 const TargetCursor = dynamic(() => import("@/components/TargetCursor"), {
+  ssr: false,
+});
+
+const LightRays = dynamic(() => import("@/components/LightRays"), {
   ssr: false,
 });
 
@@ -278,6 +281,15 @@ function StatsStripBW({
 
 // Navigation Black & White Component
 function NavigationBW() {
+  const pathname = usePathname();
+
+  const navLinks = [
+    { href: "/landing-1", label: "Landing 1" },
+    { href: "/landing-2", label: "Landing 2" },
+    { href: "/landing-3", label: "Landing 3" },
+    { href: "/final", label: "Final" },
+  ];
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -297,6 +309,30 @@ function NavigationBW() {
               AloKingz
             </span>
           </a>
+
+          {/* Navigation Links */}
+          <div className="flex items-center gap-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`
+                    px-4 py-2 rounded-lg font-display text-sm font-medium uppercase tracking-wider
+                    transition-all duration-300
+                    ${
+                      isActive
+                        ? "bg-white/10 text-white border border-white/20"
+                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                    }
+                  `}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
 
           {/* CTA Button */}
           <a
@@ -366,18 +402,19 @@ function Variation1() {
         hideDefaultCursor={true}
         parallaxOn={true}
       />
-      <AnimatedBackground variant="blur" overlayOpacity={0.85} />
       <div className="fixed inset-0 -z-10 pointer-events-none">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#3b82f6"
-          raysSpeed={1}
-          lightSpread={1.5}
-          rayLength={2}
-          pulsating={false}
-          followMouse={true}
-          mouseInfluence={0.1}
-        />
+        <Suspense fallback={null}>
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#3b82f6"
+            raysSpeed={1}
+            lightSpread={1.5}
+            rayLength={2}
+            pulsating={false}
+            followMouse={true}
+            mouseInfluence={0.1}
+          />
+        </Suspense>
       </div>
       <Navigation />
 
@@ -555,6 +592,9 @@ function Variation1() {
             </div>
           </div>
         </section>
+
+        {/* Game Rules section */}
+        <GameRules variant="gold" />
       </main>
 
       <Footer />
@@ -580,18 +620,19 @@ function Variation2() {
         hideDefaultCursor={true}
         parallaxOn={true}
       />
-      <AnimatedBackground variant="blur" overlayOpacity={0.85} />
       <div className="fixed inset-0 -z-10 pointer-events-none">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#3b82f6"
-          raysSpeed={1}
-          lightSpread={1.5}
-          rayLength={2}
-          pulsating={false}
-          followMouse={true}
-          mouseInfluence={0.1}
-        />
+        <Suspense fallback={null}>
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#3b82f6"
+            raysSpeed={1}
+            lightSpread={1.5}
+            rayLength={2}
+            pulsating={false}
+            followMouse={true}
+            mouseInfluence={0.1}
+          />
+        </Suspense>
       </div>
 
       <NavigationBW />
@@ -791,6 +832,9 @@ function Variation2() {
             </div>
           </div>
         </section>
+
+        {/* Game Rules section */}
+        <GameRules variant="neutral" />
       </main>
 
       <Footer />

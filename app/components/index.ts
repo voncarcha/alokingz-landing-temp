@@ -5,4 +5,6 @@ export { default as FeatureGrid } from "./FeatureGrid";
 export { default as StatsStrip } from "./StatsStrip";
 export { default as AnimatedBackground } from "./AnimatedBackground";
 export { default as ParticlesBackground } from "./ParticlesBackground";
+export { default as GameRules } from "./GameRules";
+export { default as CollapsibleSection } from "./CollapsibleSection";
 
