@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-display: 'Orbitron', system-ui, sans-serif;
+  --font-body: 'Rajdhani', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-dark-900 text-white font-body antialiased;
+    background-attachment: fixed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-wide;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-crimson-600 to-royal-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gradient-to-b from-crimson-500 to-royal-500;
+  }
+}
+
+@layer components {
+  /* Primary CTA Button */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 px-8 py-4 
+           text-lg font-display font-bold uppercase tracking-wider
+           bg-gradient-to-t from-crimson-500 to-royal-500
+           text-white rounded-lg
+           shadow-lg shadow-crimson-500/30 shadow-royal-500/30
+           transition-all duration-300 ease-out
+           hover:from-crimson-400 hover:to-royal-400
+           hover:shadow-xl hover:shadow-crimson-500/50 hover:shadow-royal-500/50 hover:scale-105
+           active:scale-95
+           before:absolute before:inset-0 before:rounded-lg
+           before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
+           before:bg-[length:200%_100%]
+           before:animate-shimmer before:opacity-0 hover:before:opacity-100;
+  }
+  
+  .btn-primary-red {
+    @apply relative inline-flex items-center justify-center gap-2 px-8 py-4 
+           text-lg font-display font-bold uppercase tracking-wider
+           bg-gradient-to-t from-crimson-500 to-royal-500
+           text-white rounded-lg
+           shadow-lg shadow-crimson-500/30 shadow-royal-500/30
+           transition-all duration-300 ease-out
+           hover:from-crimson-400 hover:to-royal-400
+           hover:shadow-xl hover:shadow-crimson-500/50 hover:shadow-royal-500/50 hover:scale-105
+           active:scale-95
+           before:absolute before:inset-0 before:rounded-lg
+           before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
+           before:bg-[length:200%_100%]
+           before:animate-shimmer before:opacity-0 hover:before:opacity-100;
+  }
+  
+  .btn-primary-blue {
+    @apply relative inline-flex items-center justify-center gap-2 px-8 py-4 
+           text-lg font-display font-bold uppercase tracking-wider
+           bg-gradient-to-t from-crimson-500 to-royal-500
+           text-white rounded-lg
+           shadow-lg shadow-crimson-500/30 shadow-royal-500/30
+           transition-all duration-300 ease-out
+           hover:from-crimson-400 hover:to-royal-400
+           hover:shadow-xl hover:shadow-crimson-500/50 hover:shadow-royal-500/50 hover:scale-105
+           active:scale-95
+           before:absolute before:inset-0 before:rounded-lg
+           before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
+           before:bg-[length:200%_100%]
+           before:animate-shimmer before:opacity-0 hover:before:opacity-100;
+  }
+  
+  /* Secondary button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           text-base font-display font-semibold uppercase tracking-wide
+           bg-gradient-to-t from-crimson-500/20 to-royal-500/20
+           border-2 border-crimson-500/50 text-white
+           rounded-lg transition-all duration-300
+           hover:from-crimson-500/30 hover:to-royal-500/30
+           hover:border-crimson-400 hover:border-royal-400 hover:text-white;
+  }
+  
+  /* Glass card effect */
+  .glass-card {
+    @apply relative bg-dark-800/60 backdrop-blur-xl 
+           border border-white/10 rounded-2xl
+           shadow-xl shadow-black/20;
+  }
+  
+  /* Glow text effect */
+  .glow-text {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
+  }
+  
+  /* Feature card */
+  .feature-card {
+    @apply glass-card p-6 transition-all duration-500
+           hover:border-crimson-500/30 hover:shadow-crimson-500/10
+           hover:transform hover:-translate-y-2;
+  }
+  
+  /* Animated gradient border */
+  .gradient-border {
+    @apply relative;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    @apply absolute -inset-[1px] rounded-2xl
+           bg-gradient-to-r from-crimson-500 via-royal-500 to-crimson-500
+           opacity-0 transition-opacity duration-500 -z-10;
+  }
+  
+  .gradient-border:hover::before {
+    @apply opacity-100;
+  }
+}
+
+@layer utilities {
+  /* Text gradient */
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-crimson-400 via-royal-400 to-crimson-400 
+           bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-crimson-400 via-royal-400 to-crimson-400 
+           bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-royal {
+    @apply bg-gradient-to-r from-royal-300 via-royal-400 to-royal-300 
+           bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-crimson {
+    @apply bg-gradient-to-r from-crimson-300 via-crimson-400 to-crimson-300 
+           bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-red-blue {
+    @apply bg-gradient-to-r from-crimson-400 via-royal-400 to-crimson-400 
+           bg-clip-text text-transparent;
+  }
+  
+  /* Animation delays */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  .animation-delay-600 { animation-delay: 600ms; }
+  .animation-delay-700 { animation-delay: 700ms; }
+  .animation-delay-800 { animation-delay: 800ms; }
+}
+
+/* Custom animations */
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(181, 16, 24, 0.4)) drop-shadow(0 0 20px rgba(1, 64, 203, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(181, 16, 24, 0.8)) drop-shadow(0 0 40px rgba(1, 64, 203, 0.8));
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Particles container styling */
+#tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
