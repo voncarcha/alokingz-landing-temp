@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,23 +12,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="relative w-12 h-12">
-                <Image
-                  src="/images/logo-alokingz.png"
-                  alt="AloKingz Logo"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <span className="font-display text-xl font-bold text-gradient-blue">
-                AloKingz
-              </span>
-            </Link>
-            <p className="text-white/50 text-sm max-w-md mb-4">
+            <p className="text-white/50 text-sm max-w-md mb-6">
               Join the ultimate free-to-play gaming experience. Collect rewards,
               compete with friends, and climb the leaderboards!
             </p>
+            <a
+              href="https://game.alokingz.club/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cursor-target inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-crimson-500 to-crimson-600 text-white rounded-lg font-display text-sm font-bold uppercase tracking-wider hover:from-crimson-600 hover:to-crimson-700 transition-all shadow-lg hover:shadow-xl mb-6"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Join Now
+            </a>
             <div className="flex gap-4">
               <a
                 href="#"

@@ -9,6 +9,7 @@ interface CollapsibleSectionProps {
   children: React.ReactNode;
   defaultOpen?: boolean;
   variant?: "gold" | "neutral";
+  icon?: React.ReactNode;
 }
 
 export default function CollapsibleSection({
@@ -16,6 +17,7 @@ export default function CollapsibleSection({
   children,
   defaultOpen = false,
   variant = "gold",
+  icon,
 }: CollapsibleSectionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -44,9 +46,16 @@ export default function CollapsibleSection({
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-6 text-left transition-colors"
       >
-        <h3 className={`font-display text-xl font-bold ${styles.header} transition-colors`}>
-          {title}
-        </h3>
+        <div className="flex items-center gap-3">
+          {icon && (
+            <div className={`flex-shrink-0 ${styles.icon}`}>
+              {icon}
+            </div>
+          )}
+          <h3 className={`font-display text-xl font-bold ${styles.header} transition-colors`}>
+            {title}
+          </h3>
+        </div>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}

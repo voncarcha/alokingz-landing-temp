@@ -4,7 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useSearchParams, usePathname } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import {
   Navigation,
   Footer,
@@ -282,6 +282,7 @@ function StatsStripBW({
 // Navigation Black & White Component
 function NavigationBW() {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { href: "/landing-1", label: "Landing 1" },
@@ -310,8 +311,8 @@ function NavigationBW() {
             </span>
           </a>
 
-          {/* Navigation Links */}
-          <div className="flex items-center gap-2">
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -334,7 +335,7 @@ function NavigationBW() {
             })}
           </div>
 
-          {/* CTA Button */}
+          {/* Desktop CTA Button */}
           <a
             href="https://game.alokingz.club/"
             target="_blank"
@@ -350,37 +351,91 @@ function NavigationBW() {
             </svg>
             Play Now
           </a>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden pb-4 border-t border-zinc-800">
+            <div className="flex flex-col gap-2 pt-4">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`
+                      px-4 py-3 rounded-lg font-display text-sm font-medium uppercase tracking-wider
+                      transition-all duration-300
+                      ${
+                        isActive
+                          ? "bg-white/10 text-white border border-white/20"
+                          : "text-gray-400 hover:text-white hover:bg-white/5"
+                      }
+                    `}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+              <a
+                href="https://game.alokingz.club/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="cursor-target mt-2 flex items-center justify-center gap-2 px-6 py-3 bg-white text-black rounded-lg font-display text-sm font-bold uppercase tracking-wider hover:bg-gray-200 transition-all"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Play Now
+              </a>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
-  );
-}
-
-// Footer Black & White Component
-function FooterBW() {
-  return (
-    <footer className="bg-[#111] border-t border-zinc-800 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10">
-              <Image
-                src="/images/logo-alokingz.png"
-                alt="AloKingz"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <span className="font-display text-xl font-bold text-white">
-              AloKingz
-            </span>
-          </div>
-          <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} AloKingz. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
   );
 }
 

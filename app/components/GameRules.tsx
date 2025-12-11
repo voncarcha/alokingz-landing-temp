@@ -473,13 +473,123 @@ function renderContent(content: any, variant: "gold" | "neutral" = "gold", level
   return null;
 }
 
+// SVG Icons for each game - Card game themed
+const GameIcons = {
+  // Tongits - 3 fanned playing cards
+  tongits: (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Back card */}
+      <rect x="2" y="3" width="10" height="14" rx="1.5" fill="currentColor" opacity="0.15" transform="rotate(-15 7 10)"/>
+      {/* Middle card */}
+      <rect x="6" y="3" width="10" height="14" rx="1.5" fill="currentColor" opacity="0.3"/>
+      <path d="M11 7.5l-2 3 2 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      {/* Front card */}
+      <rect x="10" y="3" width="10" height="14" rx="1.5" fill="currentColor" opacity="0.15" transform="rotate(15 15 10)"/>
+      {/* Card suits */}
+      <circle cx="11" cy="10" r="2" fill="currentColor"/>
+      {/* Decorative element */}
+      <path d="M8 19h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  ),
+  // Hold'em - Two hole cards with chips
+  holdem: (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Left card */}
+      <rect x="2" y="4" width="9" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.1"/>
+      {/* Spade on left card */}
+      <path d="M6.5 8c0 1.5-2 2.5-2 4 0 .8.9 1.5 2 1.5s2-.7 2-1.5c0-1.5-2-2.5-2-4z" fill="currentColor"/>
+      <path d="M6.5 13.5v1.5M5.5 14.5h2" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+      {/* Right card */}
+      <rect x="13" y="4" width="9" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.1"/>
+      {/* Heart on right card */}
+      <path d="M17.5 8.5c-.8-.8-2.1-.8-2.9 0-.3.3-.4.6-.4 1 0 1.8 3.3 3.5 3.3 3.5s3.3-1.7 3.3-3.5c0-.4-.1-.7-.4-1-.8-.8-2.1-.8-2.9 0z" fill="currentColor"/>
+      {/* Poker chips */}
+      <ellipse cx="8" cy="20" rx="3" ry="1.5" fill="currentColor" opacity="0.4"/>
+      <ellipse cx="16" cy="20" rx="3" ry="1.5" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="12" cy="19" rx="3" ry="1.5" fill="currentColor" opacity="0.8"/>
+    </svg>
+  ),
+  // Pusoy - 13 cards arranged (3-5-5)
+  pusoy: (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Back row - 5 cards */}
+      <rect x="1" y="2" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.15"/>
+      <rect x="5.5" y="2" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.2"/>
+      <rect x="10" y="2" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.25"/>
+      <rect x="14.5" y="2" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.2"/>
+      <rect x="19" y="2" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.15"/>
+      {/* Middle row - 5 cards */}
+      <rect x="1" y="9" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.25"/>
+      <rect x="5.5" y="9" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.3"/>
+      <rect x="10" y="9" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.35"/>
+      <rect x="14.5" y="9" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.3"/>
+      <rect x="19" y="9" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.25"/>
+      {/* Front row - 3 cards */}
+      <rect x="5.5" y="16" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.4"/>
+      <rect x="10" y="16" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.5"/>
+      <rect x="14.5" y="16" width="4" height="6" rx="0.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.4"/>
+    </svg>
+  ),
+  // Baccarat - Two hands facing off (Player vs Banker)
+  baccarat: (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Player side label */}
+      <text x="5" y="4" fontSize="4" fill="currentColor" fontWeight="bold" opacity="0.6">P</text>
+      {/* Player cards */}
+      <rect x="1" y="5" width="5" height="7" rx="1" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.2"/>
+      <rect x="5" y="5" width="5" height="7" rx="1" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.3"/>
+      {/* Diamond on player card */}
+      <path d="M7.5 7l1.5 2-1.5 2-1.5-2z" fill="currentColor"/>
+      {/* VS divider */}
+      <line x1="12" y1="3" x2="12" y2="21" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" opacity="0.3"/>
+      {/* Banker side label */}
+      <text x="17" y="4" fontSize="4" fill="currentColor" fontWeight="bold" opacity="0.6">B</text>
+      {/* Banker cards */}
+      <rect x="14" y="5" width="5" height="7" rx="1" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.3"/>
+      <rect x="18" y="5" width="5" height="7" rx="1" stroke="currentColor" strokeWidth="1.5" fill="currentColor" opacity="0.2"/>
+      {/* Club on banker card */}
+      <circle cx="16.5" cy="8" r="1" fill="currentColor"/>
+      <circle cx="15.7" cy="9.3" r="1" fill="currentColor"/>
+      <circle cx="17.3" cy="9.3" r="1" fill="currentColor"/>
+      <path d="M16.5 10v1.5" stroke="currentColor" strokeWidth="1"/>
+      {/* Score displays */}
+      <rect x="2" y="14" width="7" height="4" rx="1" fill="currentColor" opacity="0.15"/>
+      <text x="5.5" y="17" fontSize="3" fill="currentColor" textAnchor="middle" fontWeight="bold">9</text>
+      <rect x="15" y="14" width="7" height="4" rx="1" fill="currentColor" opacity="0.15"/>
+      <text x="18.5" y="17" fontSize="3" fill="currentColor" textAnchor="middle" fontWeight="bold">8</text>
+      {/* Chips */}
+      <ellipse cx="12" cy="20" rx="4" ry="1.5" fill="currentColor" opacity="0.4"/>
+    </svg>
+  ),
+  // Super6 - Baccarat with prominent 6
+  super6: (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Background cards */}
+      <rect x="2" y="6" width="6" height="9" rx="1" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.15"/>
+      <rect x="7" y="6" width="6" height="9" rx="1" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.2"/>
+      <rect x="16" y="6" width="6" height="9" rx="1" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.15"/>
+      {/* Center card with 6 */}
+      <rect x="11" y="4" width="8" height="11" rx="1.5" stroke="currentColor" strokeWidth="2" fill="currentColor" opacity="0.1"/>
+      {/* Large 6 */}
+      <text x="15" y="12.5" fontSize="9" fill="currentColor" textAnchor="middle" fontWeight="bold">6</text>
+      {/* Star burst effect */}
+      <path d="M15 1l.5 2 2-.5-1.5 1.5 1.5 1.5-2-.5-.5 2-.5-2-2 .5 1.5-1.5L12 2.5l2 .5.5-2z" fill="currentColor" opacity="0.6"/>
+      {/* Chips with "SUPER" theme */}
+      <ellipse cx="6" cy="20" rx="3.5" ry="1.5" fill="currentColor" opacity="0.5"/>
+      <ellipse cx="18" cy="20" rx="3.5" ry="1.5" fill="currentColor" opacity="0.5"/>
+      <ellipse cx="12" cy="19" rx="4" ry="1.8" fill="currentColor" opacity="0.7"/>
+      <text x="12" y="20" fontSize="2.5" fill="currentColor" textAnchor="middle" fontWeight="bold" opacity="0.9">SUPER</text>
+    </svg>
+  ),
+};
+
 export default function GameRules({ variant = "gold" }: GameRulesProps) {
   const games = [
-    gameRulesData.tongits,
-    gameRulesData.holdem,
-    gameRulesData.pusoy,
-    gameRulesData.baccarat,
-    gameRulesData.super6,
+    { ...gameRulesData.tongits, icon: GameIcons.tongits },
+    { ...gameRulesData.holdem, icon: GameIcons.holdem },
+    { ...gameRulesData.pusoy, icon: GameIcons.pusoy },
+    { ...gameRulesData.baccarat, icon: GameIcons.baccarat },
+    { ...gameRulesData.super6, icon: GameIcons.super6 },
   ];
 
   return (
@@ -508,7 +618,7 @@ export default function GameRules({ variant = "gold" }: GameRulesProps) {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <CollapsibleSection title={game.title} variant={variant}>
+              <CollapsibleSection title={game.title} variant={variant} icon={game.icon}>
                 <div className="space-y-6 pt-4">
                   {Object.entries(game.content).map(([sectionTitle, sectionContent]) => (
                     <div key={sectionTitle}>
